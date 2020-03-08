@@ -16,8 +16,21 @@ body {
 }
 .table td {
   border: 1px solid gray;
-  padding: 4px;
+  padding: 2px 6px;
 }
 .table tr:nth-child(even) {
   background: #eee;
+}
+.table__header th {
+  color: gray;
+  padding-bottom: 5px;
+  text-decoration: underline;
+  text-transform: capitalize;
+  cursor: pointer;
+  line-height: 20px;
+  transition: 0.5s;
+}
+.table__header .active {
+  color: #234;
+  font-size: 17px;
 }

@@ -14,6 +14,16 @@ export default function rootReducer(store = state, action) {
         ...store,
         loading: action.payload,
       }
+    case 'DATA_SORT_BY_DATE':
+      return {
+        ...store,
+        users: action.payload,
+      }
+    case 'DATA_SORT_BY_STATUS':
+      return {
+        ...store,
+        users: action.payload,
+      }
     default:
       return store
   }

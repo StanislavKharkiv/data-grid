@@ -25,18 +25,19 @@ function addUsers() {
 class TableWrapper_ extends Component {
   componentDidMount() {
     setTimeout(() => {
-      this.props.addUsersToStore(addUsers())
+      const usersArr = addUsers()
+      this.users = usersArr
+      this.props.addUsersToStore(usersArr)
       this.props.isLoading()
-    }, 150)
+    }, 200)
   }
 
   render() {
-    const { users, loading } = this.props
-    console.log(users)
+    const { loading } = this.props
     return (
       <div>
         <h1>Table</h1>
-        <div>{loading ? <Spinner /> : <Table users={users} />}</div>
+        <div>{loading ? <Spinner /> : <Table />}</div>
       </div>
     )
   }
@@ -44,7 +45,6 @@ class TableWrapper_ extends Component {
 
 const mapTateToProps = store => {
   return {
-    users: store.users,
     loading: store.loading,
   }
 }
@@ -58,7 +58,6 @@ const mapDispatchToProps = dispatch => {
 
 TableWrapper_.propTypes = {
   addUsersToStore: PropTypes.func,
-  users: PropTypes.array,
   isLoading: PropTypes.func,
   loading: PropTypes.bool,
 }

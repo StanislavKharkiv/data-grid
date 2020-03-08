@@ -12,3 +12,27 @@ export function isLoading() {
     payload: !store.getState().loading,
   }
 }
+
+let sortResult = [-1, 1]
+
+export function sortUsersByDate(store) {
+  sortResult.reverse()
+  const arr = [...store.getState().users]
+  return {
+    type: 'DATA_SORT_BY_DATE',
+    payload: arr.sort((one, two) => {
+      return one.getTime > two.getTime ? sortResult[0] : sortResult[1]
+    }),
+  }
+}
+
+export function sortUsersByState(store) {
+  sortResult.reverse()
+  const arr = [...store.getState().users]
+  return {
+    type: 'DATA_SORT_BY_STATUS',
+    payload: arr.sort((one, two) => {
+      return +one.active > +two.active ? sortResult[0] : sortResult[1]
+    }),
+  }
+}
