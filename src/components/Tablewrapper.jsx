@@ -8,15 +8,15 @@ import Table from './Table'
 import Spinner from './Spinner'
 
 function addUsers() {
-  const usersAll = 5
+  const usersAll = 10
   const arr = []
-  const date = new Date()
-  for (let i = 0; i < usersAll; i++) {
+  for (let i = 1; i <= usersAll; i++) {
     const user = faker.helpers.userCard()
-    const dateUser = faker.date.past()
+    const dateUser = faker.date.past(2)
     user.active = faker.random.boolean()
-    user.dateRegistration = date.toLocaleString(dateUser)
-    user.getTime = date.getTime(dateUser)
+    user.dateRegistration = dateUser.toString()
+    user.getTime = Date.parse(dateUser)
+    user.id = i
     arr.push(user)
   }
   return arr

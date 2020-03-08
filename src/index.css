@@ -10,3 +10,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.table {
+  font-size: 14px;
+  border-collapse: collapse;
+}
+.table td {
+  border: 1px solid gray;
+  padding: 4px;
+}
+.table tr:nth-child(even) {
+  background: #eee;
+}
