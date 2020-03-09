@@ -27,14 +27,18 @@ class Table_ extends Component {
     this.state = {
       sortedBy: false,
     }
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(e) {
+  handleClick = e => {
     const name = e.target.getAttribute('data-name')
-    if (name === 'date') this.props.sortUsersByDate()
-    if (name === 'status') this.props.sortUsersByState()
-    this.setState({ isSorted: name })
+    if (name === 'date') {
+      this.props.sortUsersByDate()
+      this.setState({ isSorted: name })
+    }
+    if (name === 'status') {
+      this.props.sortUsersByState()
+      this.setState({ isSorted: name })
+    }
   }
 
   render() {
@@ -46,7 +50,9 @@ class Table_ extends Component {
         <td>{parseAddress(address)}</td>
         <td>{_.replace(phone, ' x', '-')}</td>
         <td>{website}</td>
-        <td>{active ? 'online' : 'offline'}</td>
+        <td style={active ? { color: 'green' } : { color: 'red' }}>
+          {active ? 'online' : 'offline'}
+        </td>
         <td>{getDate(getTime)}</td>
       </tr>
     ))
