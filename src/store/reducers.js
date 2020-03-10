@@ -1,5 +1,6 @@
 const state = {
   loading: true,
+  isSortDirectionDown: false,
 }
 
 export default function rootReducer(store = state, action) {
@@ -14,15 +15,11 @@ export default function rootReducer(store = state, action) {
         ...store,
         loading: action.payload,
       }
-    case 'DATA_SORT_BY_DATE':
+    case 'DATA_SORT':
       return {
         ...store,
         users: action.payload,
-      }
-    case 'DATA_SORT_BY_STATUS':
-      return {
-        ...store,
-        users: action.payload,
+        isSortDirectionDown: !store.isSortDirectionDown,
       }
     default:
       return store

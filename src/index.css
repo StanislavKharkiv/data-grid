@@ -10,9 +10,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+h1 {
+  background: #333;
+  color: white;
+  text-transform: uppercase;
+  padding-left: 60px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 4px 0 black;
+}
+
 .table {
   font-size: 14px;
   border-collapse: collapse;
+}
+.table .caption {
+  text-transform: uppercase;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  margin-bottom: 20px;
 }
 .table td {
   border: 1px solid gray;
@@ -23,6 +38,7 @@ body {
 }
 .table__header th {
   color: gray;
+  min-width: 65px;
   padding-bottom: 5px;
   text-decoration: underline;
   text-transform: capitalize;
@@ -33,4 +49,53 @@ body {
 .table__header .active {
   color: #234;
   font-size: 17px;
+}
+.table__header .active > img {
+  opacity: 1;
+}
+.table__header th img {
+  width: 10px;
+  margin-left: 4px;
+  opacity: 0;
+  transition: 0.5s;
+}
+.table__header .up {
+  transform: rotate(180deg);
+}
+
+/* SEARCH */
+.search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  align-items: flex-end;
+}
+.search > * {
+  margin: 5px;
+  outline: none;
+}
+.search__btn {
+  width: 28px;
+  height: 24px;
+  background: url(./img/search.png) center/contain no-repeat;
+  border-radius: 5px;
+  border: 2px solid gray;
+  cursor: pointer;
+  box-shadow: 0 0 2px 1px black;
+  border: 2px solid transparent;
+  transition: 0.4s;
+}
+.search__btn:hover {
+  box-shadow: 0 0 4px 1px gray;
+}
+.search__btn:active {
+  box-shadow: 0 0 1px 2px gray;
+}
+.search__input {
+  height: 24px;
+  padding: 2px;
+  border-radius: 5px;
+}
+.search__input:focus {
+  border: 2px solid gray;
 }

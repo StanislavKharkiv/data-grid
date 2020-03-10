@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { sortUsersByDate, sortUsersByState } from '../store/actions'
+import { sortColumn } from '../store/actions'
 import store from '../store/store'
+import arrow from '../img/arrow.png'
 import * as _ from 'lodash'
 
 function parseAddress(address) {
@@ -30,36 +31,33 @@ class Table_ extends Component {
   }
 
   handleClick = e => {
-    const name = e.target.getAttribute('data-name')
-    if (name === 'date') {
-      this.props.sortUsersByDate()
-      this.setState({ isSorted: name })
-    }
-    if (name === 'status') {
-      this.props.sortUsersByState()
-      this.setState({ isSorted: name })
-    }
+    const name = e.target.closest('th').getAttribute('data-name')
+    this.props.sortColumn(store.getState(), name)
+    this.setState({ isSorted: name })
   }
 
   render() {
-    const { users } = this.props
-    const table = users.map(({ id, name, email, address, phone, website, active, getTime }) => (
+    console.log(store.getState())
+
+    const { users, isArrowDown } = this.props
+    console.log('arrow', isArrowDown)
+    const table = users.map(({ id, name, email, address, phone, website, status, date }) => (
       <tr key={id}>
         <td>{name}</td>
         <td>{email}</td>
         <td>{parseAddress(address)}</td>
         <td>{_.replace(phone, ' x', '-')}</td>
         <td>{website}</td>
-        <td style={active ? { color: 'green' } : { color: 'red' }}>
-          {active ? 'online' : 'offline'}
+        <td style={status ? { color: 'green' } : { color: 'red' }}>
+          {status ? 'online' : 'offline'}
         </td>
-        <td>{getDate(getTime)}</td>
+        <td>{getDate(date)}</td>
       </tr>
     ))
 
     return (
       <table className="table">
-        <caption>users table</caption>
+        <caption className="caption">users table</caption>
         <tbody>
           <tr className="table__header">
             {tableHeaders.map((el, i) => {
@@ -70,7 +68,8 @@ class Table_ extends Component {
                   onClick={this.handleClick}
                   className={el === this.state.isSorted ? 'active' : ''}
                 >
-                  {el}
+                  <span>{el}</span>
+                  <img className={isArrowDown ? null : 'up'} src={arrow} alt="^" />
                 </th>
               )
             })}
@@ -84,19 +83,19 @@ class Table_ extends Component {
 
 Table_.propTypes = {
   users: PropTypes.array.isRequired,
-  sortUsersByDate: PropTypes.func,
-  sortUsersByState: PropTypes.func,
+  sortColumn: PropTypes.func,
+  isArrowDown: PropTypes.bool,
 }
 
 const mapTateToProps = store => {
   return {
     users: store.users,
+    isArrowDown: store.isSortDirectionDown,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    sortUsersByDate: () => dispatch(sortUsersByDate(store)),
-    sortUsersByState: () => dispatch(sortUsersByState(store)),
+    sortColumn: (state, name) => dispatch(sortColumn(state, name)),
   }
 }
 

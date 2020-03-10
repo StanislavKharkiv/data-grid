@@ -15,24 +15,13 @@ export function isLoading() {
 
 let sortResult = [-1, 1]
 
-export function sortUsersByDate(store) {
+export function sortColumn(state, name) {
   sortResult.reverse()
-  const arr = [...store.getState().users]
+  const arr = [...state.users]
   return {
-    type: 'DATA_SORT_BY_DATE',
+    type: 'DATA_SORT',
     payload: arr.sort((one, two) => {
-      return one.getTime > two.getTime ? sortResult[0] : sortResult[1]
-    }),
-  }
-}
-
-export function sortUsersByState(store) {
-  sortResult.reverse()
-  const arr = [...store.getState().users]
-  return {
-    type: 'DATA_SORT_BY_STATUS',
-    payload: arr.sort((one, two) => {
-      return +one.active > +two.active ? sortResult[0] : sortResult[1]
+      return one[name] > two[name] ? sortResult[0] : sortResult[1]
     }),
   }
 }

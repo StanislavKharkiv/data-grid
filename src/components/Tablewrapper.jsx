@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import faker from 'faker'
 import { addUsersToState, isLoading } from '../store/actions'
 
+import Search from './Search'
 import Table from './Table'
 import Spinner from './Spinner'
 
@@ -13,9 +14,9 @@ function addUsers() {
   for (let i = 1; i <= usersAll; i++) {
     const user = faker.helpers.userCard()
     const dateUser = faker.date.past(2)
-    user.active = faker.random.boolean()
+    user.status = faker.random.boolean()
     user.dateRegistration = dateUser.toString()
-    user.getTime = Date.parse(dateUser)
+    user.date = Date.parse(dateUser)
     user.id = i
     arr.push(user)
   }
@@ -36,7 +37,8 @@ class TableWrapper_ extends Component {
     const { loading } = this.props
     return (
       <div>
-        <h1>Table</h1>
+        <h1>Data grid</h1>
+        <Search />
         <div>{loading ? <Spinner /> : <Table />}</div>
       </div>
     )
