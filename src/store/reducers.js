@@ -9,6 +9,7 @@ export default function rootReducer(store = state, action) {
       return {
         ...store,
         users: action.payload,
+        allUsers: action.payload,
       }
     case 'IS_LOADING':
       return {
@@ -20,6 +21,11 @@ export default function rootReducer(store = state, action) {
         ...store,
         users: action.payload,
         isSortDirectionDown: !store.isSortDirectionDown,
+      }
+    case 'SEARCH_BY_ALL':
+      return {
+        ...store,
+        users: action.payload,
       }
     default:
       return store

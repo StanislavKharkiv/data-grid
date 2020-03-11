@@ -15,7 +15,7 @@ function addUsers() {
     const user = faker.helpers.userCard()
     const dateUser = faker.date.past(2)
     user.status = faker.random.boolean()
-    user.dateRegistration = dateUser.toString()
+    // user.dateRegistration = dateUser.toString()
     user.date = Date.parse(dateUser)
     user.id = i
     arr.push(user)

@@ -38,9 +38,7 @@ class Table_ extends Component {
 
   render() {
     console.log(store.getState())
-
     const { users, isArrowDown } = this.props
-    console.log('arrow', isArrowDown)
     const table = users.map(({ id, name, email, address, phone, website, status, date }) => (
       <tr key={id}>
         <td>{name}</td>
