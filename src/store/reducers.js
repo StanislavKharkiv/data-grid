@@ -1,6 +1,7 @@
 const state = {
   loading: true,
   isSortDirectionDown: false,
+  users: [],
 }
 
 export default function rootReducer(store = state, action) {

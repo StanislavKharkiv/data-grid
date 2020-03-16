@@ -27,12 +27,13 @@ export function sortColumn(state, name) {
   }
 }
 
-export function searchByAllColumn(inputValue) {
+export function searchByAllColumn(
+  inputValue,
+  iterableProperties = ['name', 'email', 'address', 'phone', 'website']
+) {
   const usersArr = [...store.getState().allUsers]
 
   function filterUsers(inputValue, allUsers) {
-    const iterableProperties = ['name', 'email', 'address', 'phone', 'website']
-
     if (inputValue === '') return allUsers
     return allUsers.filter(userObj =>
       iterableProperties.some(property => {
