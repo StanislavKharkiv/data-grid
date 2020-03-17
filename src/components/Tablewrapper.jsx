@@ -4,18 +4,20 @@ import PropTypes from 'prop-types'
 import faker from 'faker'
 import { addUsersToState, isLoading } from '../store/actions'
 
+import Header from './Header'
+import Search from './Search'
 import Table from './Table'
 import Spinner from './Spinner'
 
 function addUsers() {
-  const usersAll = 10
+  const usersAll = 1000
   const arr = []
   for (let i = 1; i <= usersAll; i++) {
     const user = faker.helpers.userCard()
     const dateUser = faker.date.past(2)
-    user.active = faker.random.boolean()
-    user.dateRegistration = dateUser.toString()
-    user.getTime = Date.parse(dateUser)
+    user.status = faker.random.boolean()
+    // user.dateRegistration = dateUser.toString()
+    user.date = Date.parse(dateUser)
     user.id = i
     arr.push(user)
   }
@@ -23,20 +25,36 @@ function addUsers() {
 }
 
 class TableWrapper_ extends Component {
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.addUsersToStore(addUsers())
-      this.props.isLoading()
-    }, 150)
+  state = {
+    columnsShow: {
+      name: true,
+      email: true,
+      address: true,
+      phone: true,
+      website: true,
+      status: true,
+      date: true,
+    },
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      const usersArr = addUsers()
+      this.users = usersArr
+      this.props.addUsersToStore(usersArr)
+      this.props.isLoading()
+    }, 200)
+  }
+  handleCheckboxChange = e => {
+    this.setState({ columnsShow: { ...this.state.columnsShow, [e.target.name]: e.target.checked } })
+  }
   render() {
-    const { users, loading } = this.props
-    console.log(users)
+    const { loading } = this.props
     return (
       <div>
-        <h1>Table</h1>
-        <div>{loading ? <Spinner /> : <Table users={users} />}</div>
+        <Header />
+        <Search onChange={this.handleCheckboxChange} />
+        <div>{loading ? <Spinner /> : <Table columnsShow={this.state.columnsShow} />}</div>
       </div>
     )
   }
@@ -44,7 +62,6 @@ class TableWrapper_ extends Component {
 
 const mapTateToProps = store => {
   return {
-    users: store.users,
     loading: store.loading,
   }
 }
@@ -58,7 +75,6 @@ const mapDispatchToProps = dispatch => {
 
 TableWrapper_.propTypes = {
   addUsersToStore: PropTypes.func,
-  users: PropTypes.array,
   isLoading: PropTypes.func,
   loading: PropTypes.bool,
 }

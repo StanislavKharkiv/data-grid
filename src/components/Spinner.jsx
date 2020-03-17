@@ -3,7 +3,7 @@ import React from 'react'
 export default function Spinner() {
   return (
     <div className="spinner">
-      <h2>Loading . . .</h2>
+      <h2 style={{ textAlign: 'center' }}>Loading . . .</h2>
     </div>
   )
 }
